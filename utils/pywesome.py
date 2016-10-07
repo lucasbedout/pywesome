@@ -1,6 +1,10 @@
 from types import LambdaType
 from random import randint
 
+'''
+Basic functions for functional programming with lists,
+map, reduce, search, contains, ...
+'''
 def map(collection, function):
 	mapped_collection = []
 	for item in collection:
@@ -50,6 +54,37 @@ def random(collection, offset=1):
 		index = random_number(0, len(collection) - 1, indexes)
 		results.append(collection[index]) 
 	return results[0] if len(results) == 1 else results
+
+# Must be a dict collection
+def only(collection, prop):
+	return map(collection, lambda o: o[prop])
+
+def chunk(collection, size):
+	sizen = max(1, size)
+	return [collection[item:item + size] for item in range(0, len(collection), size)]
+
+def merge(*args):
+	collection = args[0]
+	for col in args[1:]:
+		for item in col:
+			collection.append(item)
+	return collection
+
+def collapse(collections):
+	return reduce(collections, lambda g, c: merge(g, c))
+
+
+'''
+Functions running operations on the list (avg, sum,...)
+'''
+def sum(collection, prop=None):
+	if not prop:
+		return reduce(collection, lambda c, n: c + n )
+	return sum(only(collection, prop))
+
+def avg(collection, prop=None):
+	return sum(collection, prop) / len(collection)
+
 
 '''
 Helpers (not related to collections)
