@@ -101,6 +101,16 @@ class TestCollectutilsMethods(unittest.TestCase):
         col = [[0, 1, 2, 3], [4, 5, 6], [7, 8, 9]]
         self.assertEquals(_.collapse(col),  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
 
+    def test_sort(self):
+        col = [3, 4, 0, 1, 2, 1, 5]
+        self.assertEquals(_.sort(col), [0, 1, 1, 2, 3, 4, 5])
+        self.assertEquals(_.sort(col, True), [5, 4, 3, 2, 1, 1, 0])
+
+    def test_sort_by(self):
+        col = [{'id': 2}, {'id': 1}, {'id': 3}, {'id': 5},{'id': 4}]
+        self.assertEquals(_.sort_by(col, 'id'), [{'id': 1}, {'id': 2}, {'id': 3}, {'id': 4}, {'id': 5}])
+        self.assertEquals(_.sort_by(col, 'id', True), [{'id': 5}, {'id': 4}, {'id': 3}, {'id': 2}, {'id': 1}])
+
 class TestOperationsMethods(unittest.TestCase):
 
     def test_sum(self):
@@ -117,6 +127,18 @@ class TestOperationsMethods(unittest.TestCase):
         col = [{'id': 1}, {'id': 2}, {'id': 3}, {'id': 4}, {'id': 5}]
         self.assertEquals(_.avg(col, 'id'), 3)
 
+class TestFormattingMethods(unittest.TestCase):
+
+    def test_join(self):
+        col = [0, 1, 2, 3, 4, 5]
+        self.assertEquals(_.join(col), '0,1,2,3,4,5')
+
+        col = [{'id': 1}, {'id': 2}]
+        self.assertEquals(_.join(col, '-'), "{'id': 1}-{'id': 2}")
+
+    def test_json(self):
+        col = [{'id': 1}, {'id': 2}, {'id': 3}, {'id': 4}, {'id': 5}]
+        self.assertEquals(_.json(col), json.dumps(col))
 
 class TestHelpersMethods(unittest.TestCase):
 

@@ -1,5 +1,6 @@
-from types import LambdaType
+import json as python_json 
 from random import randint
+from types import LambdaType
 
 '''
 Basic functions for functional programming with lists,
@@ -73,6 +74,11 @@ def merge(*args):
 def collapse(collections):
 	return reduce(collections, lambda g, c: merge(g, c))
 
+def sort(collection, desc=False):
+	return sorted(collection, reverse=desc)
+
+def sort_by(collection, prop, desc=False):
+	return sorted(collection, key=lambda d: d[prop], reverse=desc)
 
 '''
 Functions running operations on the list (avg, sum,...)
@@ -85,6 +91,17 @@ def sum(collection, prop=None):
 def avg(collection, prop=None):
 	return sum(collection, prop) / len(collection)
 
+'''
+Formatting functions
+'''
+
+def join(collection, char=','):
+	return char.join(
+		map(collection, lambda e: str(e))
+	)
+
+def json(collection):
+	return python_json.dumps(collection)
 
 '''
 Helpers (not related to collections)
