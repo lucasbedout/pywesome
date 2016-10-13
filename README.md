@@ -37,16 +37,16 @@ collection.map(lambda n: chr(n)).reduce(lambda w, l: w + l) # 'Pywesome'
  
 The choice is yours, all pywesome functions are available in the wrapper. 
 
-The pywesome library will always return a new list and never update the current one. The wrapper works the same way, but it always return a new pywesome object (except for the methods is the next section).
+The pywesome library will always return a new list and never update the current one. The wrapper works the same way, but it always returns a new pywesome object (except for the methods is the next section).
 
 
-### Wrapper specific methods
+## Wrapper specific methods
 
 The output of the function (after the # in the code examples) is not the real output but is easier to read, to get the list you can use the method `to_list()`.
 
 You can't chain these methods (as they return void or a specific element)
 
-**count()**
+###count()
 
 Returns the number of elements in the collection
 
@@ -56,7 +56,7 @@ collection = collect([1, 2, 3, 4])
 collection.count() # 4
 ```
 
-**append(*item*)**
+###append(*item*)
 
 Add an element at the end of the collection
 
@@ -67,7 +67,7 @@ collection.append(5) # [1, 2, 3, 4, 5]
 
 ```
 
-**prepend(*item*)**
+###prepend(*item*)
 
 Add an element at the end of the collection
 
@@ -78,7 +78,7 @@ collection.prepend(0) # [0, 1, 2, 3, 4]
 
 ```
 
-**pop(*key=None*)**
+###pop(*key=None*)
 
 Remove an element by key, if no key is provided, it removes the last element. The method returns the removed element
 
@@ -92,7 +92,7 @@ collection.pop() # [1, 2, 4], returns 5
 ```
 
 
-**to_list()**
+###to_list()
 
 Return the collection as a list
 
@@ -104,7 +104,7 @@ collection.to_list() # [1, 2, 3, 4]
 
 ```
 
-**to_json()**
+###to_json()
 
 Return the collection as json
 
@@ -117,7 +117,7 @@ collection.to_json() # [{"id": 1}, {"id": 2}, {"id": 3}]
 ```
 
 
-### Pywesome methods
+## Pywesome methods
 
 We will use the wrapper syntax to describe the methods, but you can easily change the syntax to use the classic notation.
 
