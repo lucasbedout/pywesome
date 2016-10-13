@@ -5,6 +5,6 @@ setup(
     version = '201610131645',
     description = 'Python lists on steroidss',
     packages = [
-        'pywesome.utils',
+        'utils',
     ]
 )
