@@ -1,4 +1,5 @@
 import pywesome as _
+from pywesome_wrapper import collect
 import unittest
 import json
 
@@ -111,6 +112,16 @@ class TestCollectutilsMethods(unittest.TestCase):
         self.assertEquals(_.sort_by(col, 'id'), [{'id': 1}, {'id': 2}, {'id': 3}, {'id': 4}, {'id': 5}])
         self.assertEquals(_.sort_by(col, 'id', True), [{'id': 5}, {'id': 4}, {'id': 3}, {'id': 2}, {'id': 1}])
 
+class TestAccessValueMethods(unittest.TestCase):
+    def test_first(self):
+        self.assertEquals(_.first([1, 2, 3]), 1)
+
+    def test_get(self):
+        self.assertEquals(_.get([1, 2, 3], 1), 2)
+
+    def test_last(self):
+        self.assertEquals(_.last([1, 2, 3]), 3)
+
 class TestOperationsMethods(unittest.TestCase):
 
     def test_sum(self):
@@ -147,6 +158,35 @@ class TestHelpersMethods(unittest.TestCase):
             i = _.random_number(0, 6)
             self.assertTrue(i >= 0 and i <= 6)
 
+class TestPywesomeWrapperMethods(unittest.TestCase):
+
+    def test_forwarding(self):
+        col = collect([0, 1, 2, 3, 4, 5])
+        self.assertEquals(col.reduce(lambda s,n: s + n), 15)
+        self.assertEquals(col.map(lambda n: n + 1), [1, 2, 3, 4, 5, 6])
+
+    def test_append(self):
+        col = collect([0, 1, 2])
+        col.append(3)
+        self.assertEquals(col.last(), 3)
+
+    def test_prepend(self):
+        col = collect([0, 1, 2])
+        col.prepend(3)
+        self.assertEquals(col.first(), 3)
+
+    def test_count(self):
+        col = collect([0, 1, 2])
+        self.assertEquals(col.count(), 3)
+
+    def test_to_list(self):
+        col = collect([0, 1, 2])
+        self.assertEquals(col.to_list(), [0, 1, 2])
+
+    def test_to_json(self):
+        col = collect([0, 1, 2])
+        self.assertEquals(col.to_json(), "[0, 1, 2]")
+        
 
 if __name__ == '__main__':
     unittest.main()

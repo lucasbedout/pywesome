@@ -1,6 +1,7 @@
 import json as python_json 
 from random import randint
 from types import LambdaType
+from copy import copy
 
 '''
 Basic functions for functional programming with lists,
@@ -13,6 +14,7 @@ def map(collection, function):
 	return mapped_collection
 
 def reduce(collection, function, carry=None):
+	collection = copy(collection)
 	if not carry:
 		carry = collection[0]
 		collection.pop(0)
@@ -75,11 +77,25 @@ def collapse(collections):
 	return reduce(collections, lambda g, c: merge(g, c))
 
 def sort(collection, desc=False):
-	return sorted(collection, reverse=desc)
+	return sorted(copy(collection), reverse=desc)
 
 def sort_by(collection, prop, desc=False):
-	return sorted(collection, key=lambda d: d[prop], reverse=desc)
+	return sorted(copy(collection), key=lambda d: d[prop], reverse=desc)
 
+'''
+These methods can seem a bit overkilled or not pythonic
+But they are useful for consistency when using the class wrapper
+They are defined here for consistency in the library
+'''
+
+def first(collection):
+	return collection[0]
+
+def last(collection):
+	return collection[-1]
+
+def get(collection, key):
+	return collection[key]
 '''
 Functions running operations on the list (avg, sum,...)
 '''
