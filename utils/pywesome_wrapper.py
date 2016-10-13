@@ -3,7 +3,7 @@ import pywesome
 def collect(entities):
     return Pywesome(entities)
 
-class Pywesome:
+class Pywesome(object):
 
     entities = []
 
@@ -15,7 +15,10 @@ class Pywesome:
             return object.__getattr__(self, name)
         except AttributeError:
             def forward(*args, **kwargs):
-                return getattr(pywesome, name)(self.entities, *args, **kwargs)
+                result = getattr(pywesome, name)(self.entities, *args, **kwargs)
+                if isinstance(result, list):
+                    return collect(result)
+                return result
             return forward
 
     def append(self, item):
