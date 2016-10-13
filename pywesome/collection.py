@@ -24,7 +24,9 @@ class Pywesome(object):
     def append(self, item):
         self.entities.append(item)
 
-    def pop(self, key):
+    def pop(self, key=None):
+        if not key:
+            key = self.count() - 1
         return self.entities.pop(key)
 
     def prepend(self, item):

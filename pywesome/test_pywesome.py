@@ -180,6 +180,7 @@ class TestPywesomeWrapperMethods(unittest.TestCase):
         col = collect([0, 1, 2])
         self.assertEquals(col.pop(2), 2)
         self.assertEquals(col.to_list(), [0, 1])
+        self.assertEquals(col.pop(), 1)
 
     def test_count(self):
         col = collect([0, 1, 2])
