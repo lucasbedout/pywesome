@@ -67,6 +67,7 @@ class TestCollectutilsMethods(unittest.TestCase):
         col = [1, 2, 3, 4]
         self.assertEquals(_.search(col, 3), 2)
         self.assertEquals(_.search(col, lambda n: n > 2), 2)
+        self.assertEquals(_.search(col, 8), False)
 
         col = [{'id': 1, 'name': 'Name'}, {'id': 2, 'name': 'Name', 'prop': 'value'}]
         self.assertEquals(_.search(col, {'id': 1, 'name': 'Name'}), 0)
@@ -174,6 +175,11 @@ class TestPywesomeWrapperMethods(unittest.TestCase):
         col = collect([0, 1, 2])
         col.prepend(3)
         self.assertEquals(col.first(), 3)
+
+    def test_pop(self):
+        col = collect([0, 1, 2])
+        self.assertEquals(col.pop(2), 2)
+        self.assertEquals(col.to_list(), [0, 1])
 
     def test_count(self):
         col = collect([0, 1, 2])

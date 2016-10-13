@@ -22,7 +22,7 @@ class Pywesome:
         self.entities.append(item)
 
     def pop(self, key):
-        self.entities.pop(key)
+        return self.entities.pop(key)
 
     def prepend(self, item):
         self.entities.insert(0, item)
@@ -35,5 +35,6 @@ class Pywesome:
 
     def to_json(self):
         return self.json()
+
 
 
