@@ -1,2 +1,1 @@
-from . import pywesome
-from . import collection
+from . import pywesome, collection
