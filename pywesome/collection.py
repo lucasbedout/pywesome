@@ -1,4 +1,4 @@
-import pywesome
+from pywesome import pywesome
 
 def collect(entities):
     return Pywesome(entities)
