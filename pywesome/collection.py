@@ -15,7 +15,7 @@ class Pywesome(object):
             return object.__getattr__(self, name)
         except AttributeError:
             def forward(*args, **kwargs):
-                result = getattr(pywesome, name)(self.entities, *args, **kwargs)
+                result = getattr(pywesome, name)(self.entities, *args)
                 if isinstance(result, list):
                     return collect(result)
                 return result

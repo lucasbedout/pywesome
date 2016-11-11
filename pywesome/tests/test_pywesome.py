@@ -164,6 +164,7 @@ class TestPywesomeWrapperMethods(unittest.TestCase):
     def test_forwarding(self):
         col = collect([0, 1, 2, 3, 4, 5])
         self.assertEqual(col.reduce(lambda s,n: s + n), 15)
+        self.assertEqual(col.reduce(lambda s,n: s + n, 10), 25)
         self.assertEqual(col.map(lambda n: n + 1).to_list(), [1, 2, 3, 4, 5, 6])
 
     def test_append(self):
