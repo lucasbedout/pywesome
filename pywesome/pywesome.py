@@ -15,7 +15,7 @@ def map(collection, function):
 
 def reduce(collection, function, carry=None):
 	collection = copy(collection)
-	if not carry:
+	if carry is None:
 		carry = collection[0]
 		collection.pop(0)
 	for item in collection:
