@@ -63,8 +63,10 @@ class Pywesome(object):
     def prepend(self, item):
         self.entities.insert(0, item)
 
-    def pop(self, *args):
-        return self.entities.pop(*args)
+    def pop(self, key=None):
+        if not key:
+            key = self.count() - 1
+        return self.entities.pop(key)
 
     def to_list(self):
         return self.entities
