@@ -101,7 +101,7 @@ collection.append(5) # [1, 2, 3, 4, 5]
 
 ###prepend(*item*)
 
-Add an element at the end of the collection
+Add an element at the beginning of the collection
 
 ```python
 collection = collect([1, 2, 3, 4]) 
