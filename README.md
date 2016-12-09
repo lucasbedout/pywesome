@@ -389,7 +389,7 @@ collection.first() # 1
 
 ###last()
 
-Returns the first element of the collection
+Returns the last element of the collection
 
 
 ```python
