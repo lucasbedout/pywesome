@@ -128,6 +128,12 @@ class TestAccessValueMethods(unittest.TestCase):
     def test_last(self):
         self.assertEqual(_.last([1, 2, 3]), 3)
 
+    def test_iter(self):
+        self.assertEqual(
+            [i for i in Pywesome([1, 2, 3])],
+            [1, 2, 3]
+        )
+
 
 class TestOperationsMethods(unittest.TestCase):
 

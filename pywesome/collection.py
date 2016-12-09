@@ -51,6 +51,9 @@ class Pywesome(object):
     def __mul__(self, *args, **kwargs):
         return self.collect(self.entities.__mul__(self, *args, **kwargs))
 
+    def __iter__(self, *args, **kwargs):
+        return self.entities.__iter__(*args, **kwargs)
+
     def count(self):
         return len(self.entities)
 
