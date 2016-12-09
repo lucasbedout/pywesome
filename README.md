@@ -138,3 +138,294 @@ pywesome.map([1, 2, 3, 4], lambda n: n + 1)
 ```
 
 Be careful though, you can chain methods when you use the wrapper, not with the classic notation.
+
+
+###map(`function`)
+
+Creates a new collection by applying *function* on all elements and returns it. 
+
+The function takes 1 parameter which is the current element.
+
+```python
+collection = collect([1, 2, 3, 4]) 
+
+collection.map(lambda el: el + 1) # [2, 3, 4, 5]
+```
+
+###reduce(`function`, `carry=None`)
+
+Returns one element by applying a function on all elements. 
+
+The function takes 2 parameters, the previously generated object and the current element. 
+
+You can pass an optional parameter carry to initialize the generated object.
+
+```python
+collection = collect([1, 2, 3, 4]) 
+
+collection.reduce(lambda carry, el: carry + el) # 10
+
+collection.reduce(lambda carry, el: carry + el, 10) # 20
+```
+
+If you want to return a dict or a list, you need to initialize `carry` to `{}` or `[]`
+
+###filter(`function`)
+
+Filter the collection based on the result of `function`, the current element is added only if `function(element)` is True.
+
+
+```python
+collection = collect([1, 2, 3, 4]) 
+
+collection.filter(lambda n: n < 3) # [1, 2]
+```
+
+###reject(`function`)
+
+Reject is the opposite of filter, the current element is added only if `function(element)` is False.
+
+
+```python
+collection = collect([1, 2, 3, 4]) 
+
+collection.reject(lambda n: n < 3) # [3, 4]
+```
+
+
+###contains(`haystack`, `needle`)
+
+Returns `True` if the collections contains `needle`. 
+
+```python
+collection = collect([1, 2, 3, 4]) 
+
+collection.contains(3) # True
+collection.contains(12) # False
+```
+
+You can also pass a `function` as the needle. It takes the element as only parameter and must return True or False.
+
+
+```python
+collection = collect([1, 2, 3, 4]) 
+
+collection.contains(lambda el: el < 4) # True
+collection.contains(lambda el: isinstance(el, str)) # False
+```
+
+###search(`haystack`, `needle`)
+
+Same as contains but returns the index of the first matching element. 
+
+You can pass a value or a function as `needle`.
+
+```python
+collection = collect([1, 2, 3, 4]) 
+
+collection.search(3) # 2
+collection.search(12) # False
+
+```
+
+###random(`offset=1`)
+
+Returns `offset` random values from the collection
+
+
+```python
+collection = collect([1, 2, 3, 4]) 
+
+collection.random() # 2
+collection.random() # 4
+
+collection.random(2) # [2, 3]
+
+```
+
+###only(`property`)
+
+Returns a collection filled with only the `property` value for each element of the current collection.
+
+The collection needs to contain iterable objects (dicts, etc..)
+
+```python
+collection = collect([{'id': 1, 'name': 'Name'}, {'id': 2, 'name': 'Name', 'prop': 'value'}])
+
+collection.only('id') # [1, 2]
+
+```
+
+
+###chunk(`parts`)
+
+Split the collections in `parts` chunks.
+
+```python
+collection = collect([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+
+collection.chunk(3) # [[0, 1, 2], [3, 4, 5], [6, 7, 8], [9, 10]]
+
+collection.chunk(-10) # [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+```
+
+###merge(`col1`, `col2`, `col3`, `...`)
+
+Merge all the collections passed as parameters,
+
+
+```python
+col1 = collect([1, 2, 3, 4]) 
+col2 = collect([4, 5, 6, 7]) 
+
+
+col1.merge(col2) # [1, 2, 3, 4, 4, 5, 6, 7]
+```
+
+Hint: Using the `pywesome` syntax
+
+```python
+col1 = [1, 2, 3, 4]
+col2 = [4, 5, 6, 7] 
+
+
+pywesome.merge(col1, col2)
+```
+
+###collapse(collections)
+
+Split the collections in `parts` chunks.
+
+```python
+collection = collect([[0, 1, 2, 3], [4, 5, 6], [7, 8, 9]])
+
+collection.collapse() # [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+```
+
+Hint: Using the `pywesome` syntax
+
+```python
+collection = [[0, 1, 2, 3], [4, 5, 6], [7, 8, 9]]
+pywesome.collapse(collection) #  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+```
+
+###sort(`desc=False`)
+
+Sort the collection.
+
+Default order is ascendant, set desc to `True` if you want to reverse.
+
+
+```python
+collection = collect([2, 1, 2, 5, 5]) 
+
+collection.sort() # [1, 2, 2, 5, 5]
+
+collection.sort(desc=True) # [5, 5, 2, 2, 1]
+```
+
+
+###sort_by(`prop`, `desc=False`)
+
+Sort the collection by property. The collection must be a collection of dict-like objects.
+
+Default order is ascendant, set desc to `True` if you want to reverse.
+
+
+```python
+collection = collect(collection = collect([{'id': 4, 'name': 'Name'}, {'id': 32, 'name': 'Name', 'prop': 'value'},{'id': 24, 'name': 'Name', 'prop': 'value'}])) 
+
+# Use only for readability
+collection.sort_by('id').only('id') # [4, 24, 32]
+
+collection.sort_by('id', desc=True).only('id') # [32, 24, 4]
+```
+
+
+###first()
+
+Returns the first element of the collection
+
+
+```python
+collection = collect([1, 2, 3, 4]) 
+
+collection.first() # 1
+
+```
+
+###last()
+
+Returns the first element of the collection
+
+
+```python
+collection = collect([1, 2, 3, 4]) 
+
+collection.last() # 4
+
+```
+
+###get(`index`)
+
+Returns element at `index` in the collection.
+
+
+```python
+collection = collect([1, 2, 3, 4]) 
+
+collection.get(2) # 3
+
+```
+
+###sum(`prop=None`)
+
+Sums the collection (numbers only). If you have a collection of dict-like objects, you can pass `prop`.
+
+
+```python
+collection = collect([1, 2, 3, 4]) 
+
+collection.sum() # 10
+
+collection = collect([{'id': 1, 'name': 'Name'}, {'id': 2, 'name': 'Name', 'prop': 'value'}])
+
+collection.sum('id') # 3
+
+```
+
+###avg()
+
+Returns the average of the collection. As in sum, you can pass `prop` if you have a collection of dict-like objects.
+
+
+```python
+collection = collect([1, 2, 3, 4]) 
+
+collection.avg() # 2.5
+
+collection = collect([{'id': 1, 'name': 'Name'}, {'id': 2, 'name': 'Name', 'prop': 'value'}])
+
+collection.avg('id') # 1.5
+```
+
+###join(`char=','`)
+
+Join the collection elements into a string, separated by `char`.
+
+
+```python
+collection = collect([1, 2, 3, 4]) 
+
+collection.join() # '1,2,3,4'
+
+collection.join('') # '1234'
+
+```
+
+
+
+
+
+
