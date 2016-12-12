@@ -334,7 +334,7 @@ Default order is ascendant, set desc to `True` if you want to reverse.
 
 
 ```python
-collection = collect(collection = collect([{'id': 4, 'name': 'Name'}, {'id': 32, 'name': 'Name', 'prop': 'value'},{'id': 24, 'name': 'Name', 'prop': 'value'}])) 
+collection = collect([{'id': 4, 'name': 'Name'}, {'id': 32, 'name': 'Name', 'prop': 'value'},{'id': 24, 'name': 'Name', 'prop': 'value'}])) 
 
 # Use only for readability
 collection.sort_by('id').only('id') # [4, 24, 32]
@@ -342,6 +342,25 @@ collection.sort_by('id').only('id') # [4, 24, 32]
 collection.sort_by('id', desc=True).only('id') # [32, 24, 4]
 ```
 
+###where(`prop`, `value`)
+
+Same as a SQL where, a simple `filter` shorthand.
+
+```python
+collection = collect([{'id': 4, 'name': 'Name'}, {'id': 32, 'name': 'Name'},{'id': 24, 'name': 'Name'}])) 
+
+collection.where('id', 4) # [{'id': 4, 'name': 'Name'}]
+```
+
+###where_in(`prop`, `values`)
+
+Same as a SQL where ... between, another `filter` shorthand.
+
+```python
+collection = collect([{'id': 1, 'name': 'Name'}, {'id': 2, 'name': 'Name'},{'id': 4, 'name': 'Name'}])) 
+
+collection.where_in('id', [1,3]) # [{'id': 4, 'name': 'Name', {'id': 1, 'name': 'Name'}, {'id': 2, 'name': 'Name'}]
+```
 
 ###first()
 

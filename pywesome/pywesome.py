@@ -73,7 +73,7 @@ def only(collection, prop):
 
 
 def chunk(collection, size):
-    sizen = max(1, size)
+    size = max(1, size)
     return [collection[item:item + size] for item in range(0, len(collection), size)]
 
 
@@ -95,6 +95,14 @@ def sort(collection, desc=False):
 
 def sort_by(collection, prop, desc=False):
     return sorted(copy(collection), key=lambda d: d[prop], reverse=desc)
+
+def where(collection, prop, value):
+    return filter(collection, lambda el: el[prop] == value)
+
+def where_in(collection, prop, values):
+    return filter(collection, lambda el: el[prop] >= values[0] and el[prop] <= values[1])
+
+
 
 '''
 These methods can seem a bit overkilled or not pythonic

@@ -43,16 +43,22 @@ class Pywesome(object):
             return result
 
     def __reversed__(self, *args, **kwargs):
-        return self.collect(self.entities.__reversed__(*args, **kwargs))
+        return self.collect(list(self.entities.__reversed__(*args, **kwargs)))
 
     def __add__(self, *args, **kwargs):
-        return self.collect(self.entities.__add__(self, *args, **kwargs))
+        return self.collect(self.entities.__add__(*args, **kwargs))
 
     def __mul__(self, *args, **kwargs):
-        return self.collect(self.entities.__mul__(self, *args, **kwargs))
+        return self.collect(self.entities.__mul__(*args, **kwargs))
 
     def __iter__(self, *args, **kwargs):
         return self.entities.__iter__(*args, **kwargs)
+
+    def __repr__(self):
+         return 'Pywesome('+ self.entities.__repr__() + ')'
+    
+    def __str__(self):
+         return 'Pywesome('+ self.entities.__str__() + ')'
 
     def count(self):
         return len(self.entities)

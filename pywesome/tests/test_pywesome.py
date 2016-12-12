@@ -116,6 +116,14 @@ class TestCollectutilsMethods(unittest.TestCase):
         col = [{'id': 2}, {'id': 1}, {'id': 3}, {'id': 5},{'id': 4}]
         self.assertEqual(_.sort_by(col, 'id'), [{'id': 1}, {'id': 2}, {'id': 3}, {'id': 4}, {'id': 5}])
         self.assertEqual(_.sort_by(col, 'id', True), [{'id': 5}, {'id': 4}, {'id': 3}, {'id': 2}, {'id': 1}])
+    
+    def test_where(self):
+        col = [{'id': 2}, {'id': 1}, {'id': 3}, {'id': 5},{'id': 4}]
+        self.assertEqual(_.where(col, 'id', 1), [{'id': 1}])
+
+    def test_where_in(self):
+        col = [{'id': 1}, {'id': 2}, {'id': 3}, {'id': 5},{'id': 4}]
+        self.assertEqual(_.where_in(col, 'id', [1,3]), [{'id': 1}, {'id': 2}, {'id': 3}])
 
 
 class TestAccessValueMethods(unittest.TestCase):
