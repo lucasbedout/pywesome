@@ -391,7 +391,7 @@ Same as a SQL where ... between, another `filter` shorthand.
 ```python
 collection = collect([{'id': 1, 'name': 'Name'}, {'id': 2, 'name': 'Name'},{'id': 4, 'name': 'Name'}])) 
 
-collection.where_in('id', [1,3]) # [{'id': 4, 'name': 'Name', {'id': 1, 'name': 'Name'}, {'id': 2, 'name': 'Name'}]
+collection.where_in('id', [1,3]) # [{'id': 1, 'name': 'Name'}, {'id': 2, 'name': 'Name'}]
 ```
 
 ###first()
