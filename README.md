@@ -2,8 +2,6 @@
 
 Python lists on steroids.
 
-**Table of Contents**
-
 - [Getting started](#)
 - [The wrapper](#)
 - [Wrapper specific methods](#)
@@ -33,6 +31,7 @@ Python lists on steroids.
 	- [sum](#)
 	- [avg](#)
 	- [join](#)
+
 
 ## Getting started
 
@@ -88,7 +87,7 @@ collection = collect([1, 2, 3, 4])
 collection.count() # 4
 ```
 
-###append(*item*)
+###append
 
 Add an element at the end of the collection
 
@@ -99,7 +98,7 @@ collection.append(5) # [1, 2, 3, 4, 5]
 
 ```
 
-###prepend(*item*)
+###prepend
 
 Add an element at the beginning of the collection
 
@@ -110,7 +109,7 @@ collection.prepend(0) # [0, 1, 2, 3, 4]
 
 ```
 
-###pop(*key=None*)
+###pop
 
 Remove an element by key, if no key is provided, it removes the last element. The method returns the removed element
 
@@ -124,7 +123,7 @@ collection.pop() # [1, 2, 4], returns 5
 ```
 
 
-###to_list()
+###to_list
 
 Return the collection as a list
 
@@ -136,7 +135,7 @@ collection.to_list() # [1, 2, 3, 4]
 
 ```
 
-###to_json()
+###to_json
 
 Return the collection as json
 
@@ -172,7 +171,7 @@ pywesome.map([1, 2, 3, 4], lambda n: n + 1)
 Be careful though, you can chain methods when you use the wrapper, not with the classic notation.
 
 
-###map(`function`)
+###map
 
 Creates a new collection by applying *function* on all elements and returns it. 
 
@@ -184,7 +183,7 @@ collection = collect([1, 2, 3, 4])
 collection.map(lambda el: el + 1) # [2, 3, 4, 5]
 ```
 
-###reduce(`function`, `carry=None`)
+###reduce
 
 Returns one element by applying a function on all elements. 
 
@@ -202,7 +201,7 @@ collection.reduce(lambda carry, el: carry + el, 10) # 20
 
 If you want to return a dict or a list, you need to initialize `carry` to `{}` or `[]`
 
-###filter(`function`)
+###filter
 
 Filter the collection based on the result of `function`, the current element is added only if `function(element)` is True.
 
@@ -213,8 +212,7 @@ collection = collect([1, 2, 3, 4])
 collection.filter(lambda n: n < 3) # [1, 2]
 ```
 
-###reject(`function`)
-
+###reject
 Reject is the opposite of filter, the current element is added only if `function(element)` is False.
 
 
@@ -225,7 +223,7 @@ collection.reject(lambda n: n < 3) # [3, 4]
 ```
 
 
-###contains(`haystack`, `needle`)
+###contains
 
 Returns `True` if the collections contains `needle`. 
 
@@ -246,7 +244,7 @@ collection.contains(lambda el: el < 4) # True
 collection.contains(lambda el: isinstance(el, str)) # False
 ```
 
-###search(`haystack`, `needle`)
+###search
 
 Same as contains but returns the index of the first matching element. 
 
@@ -260,7 +258,7 @@ collection.search(12) # False
 
 ```
 
-###random(`offset=1`)
+###random
 
 Returns `offset` random values from the collection
 
@@ -275,7 +273,7 @@ collection.random(2) # [2, 3]
 
 ```
 
-###only(`property`)
+###only
 
 Returns a collection filled with only the `property` value for each element of the current collection.
 
@@ -289,7 +287,7 @@ collection.only('id') # [1, 2]
 ```
 
 
-###chunk(`parts`)
+###chunk
 
 Split the collections in `parts` chunks.
 
@@ -302,7 +300,7 @@ collection.chunk(-10) # [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 ```
 
-###merge(`col1`, `col2`, `col3`, `...`)
+###merge
 
 Merge all the collections passed as parameters,
 
@@ -325,7 +323,7 @@ col2 = [4, 5, 6, 7]
 pywesome.merge(col1, col2)
 ```
 
-###collapse(collections)
+###collapse
 
 Split the collections in `parts` chunks.
 
@@ -342,7 +340,7 @@ collection = [[0, 1, 2, 3], [4, 5, 6], [7, 8, 9]]
 pywesome.collapse(collection) #  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
 ```
 
-###sort(`desc=False`)
+###sort
 
 Sort the collection.
 
@@ -358,7 +356,7 @@ collection.sort(desc=True) # [5, 5, 2, 2, 1]
 ```
 
 
-###sort_by(`prop`, `desc=False`)
+###sort_by
 
 Sort the collection by property. The collection must be a collection of dict-like objects.
 
@@ -374,7 +372,7 @@ collection.sort_by('id').only('id') # [4, 24, 32]
 collection.sort_by('id', desc=True).only('id') # [32, 24, 4]
 ```
 
-###where(`prop`, `value`)
+###where
 
 Same as a SQL where, a simple `filter` shorthand.
 
@@ -384,7 +382,7 @@ collection = collect([{'id': 4, 'name': 'Name'}, {'id': 32, 'name': 'Name'},{'id
 collection.where('id', 4) # [{'id': 4, 'name': 'Name'}]
 ```
 
-###where_in(`prop`, `values`)
+###where_in
 
 Same as a SQL where ... between, another `filter` shorthand.
 
@@ -394,8 +392,7 @@ collection = collect([{'id': 1, 'name': 'Name'}, {'id': 2, 'name': 'Name'},{'id'
 collection.where_in('id', [1,3]) # [{'id': 1, 'name': 'Name'}, {'id': 2, 'name': 'Name'}]
 ```
 
-###first()
-
+###first
 Returns the first element of the collection
 
 
@@ -406,7 +403,7 @@ collection.first() # 1
 
 ```
 
-###last()
+###last
 
 Returns the last element of the collection
 
@@ -418,7 +415,7 @@ collection.last() # 4
 
 ```
 
-###get(`index`)
+###get
 
 Returns element at `index` in the collection.
 
@@ -430,7 +427,7 @@ collection.get(2) # 3
 
 ```
 
-###sum(`prop=None`)
+###sum
 
 Sums the collection (numbers only). If you have a collection of dict-like objects, you can pass `prop`.
 
@@ -446,7 +443,7 @@ collection.sum('id') # 3
 
 ```
 
-###avg()
+###avg
 
 Returns the average of the collection. As in sum, you can pass `prop` if you have a collection of dict-like objects.
 
@@ -461,7 +458,7 @@ collection = collect([{'id': 1, 'name': 'Name'}, {'id': 2, 'name': 'Name', 'prop
 collection.avg('id') # 1.5
 ```
 
-###join(`char=','`)
+###join
 
 Join the collection elements into a string, separated by `char`.
 
