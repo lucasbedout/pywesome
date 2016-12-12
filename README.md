@@ -2,16 +2,16 @@
 
 Python lists on steroids.
 
-- [Getting started](#)
-- [The wrapper](#)
-- [Wrapper specific methods](#)
+- [Getting started](#getting-started)
+- [The wrapper](#the-wrapper)
+- [Wrapper specific methods](#wrapper-specific-methods)
 	- [count](#count)
 	- [append](#append)
 	- [prepend](#prepend)
 	- [pop](#pop)
 	- [to_list](#to_list)
 	- [to_json](#to_json)
-- [Pywesome methods](#)
+- [Pywesome methods](#pywesome-methods)
 	- [map](#map)
 	- [reduce](#reduce)
 	- [filter](#filter)
