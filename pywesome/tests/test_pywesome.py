@@ -1,18 +1,19 @@
 from pywesome import pywesome as _
-from pywesome.collection import collect
+from pywesome.collection import Pywesome
 import unittest
 import json
+
 
 class TestCollectutilsMethods(unittest.TestCase):
 
     def test_map(self):
-    	col = [1, 2, 3, 4]
-    	mapped_col = _.map(col, lambda n: n + 1)
-    	self.assertEqual(mapped_col, [2, 3, 4, 5])
+        col = [1, 2, 3, 4]
+        mapped_col = _.map(col, lambda n: n + 1)
+        self.assertEqual(mapped_col, [2, 3, 4, 5])
 
-    	col = [{'id': 1, 'name': 'Name'}, {'id': 2, 'name': 'Name'}]
-    	mapped_col = _.map(col, lambda o: o['id'])
-    	self.assertEqual(mapped_col, [1, 2])
+        col = [{'id': 1, 'name': 'Name'}, {'id': 2, 'name': 'Name'}]
+        mapped_col = _.map(col, lambda o: o['id'])
+        self.assertEqual(mapped_col, [1, 2])
 
     def test_reduce(self):
         col = [1, 2, 3, 4]
@@ -31,19 +32,22 @@ class TestCollectutilsMethods(unittest.TestCase):
             return json.dumps(d)
 
         col = [{'id': 1, 'name': 'Name'}, {'id': 2, 'name': 'Name'}, {'id': 3, 'name': 'Name'}]
-        self.assertEqual(_.reduce(col, json_merge, json.dumps([])), json.dumps(col))
+        self.assertEqual(
+            json.loads(_.reduce(col, json_merge, json.dumps([]))),
+            json.loads(json.dumps(col))
+        )
 
         col = [1]
         self.assertEqual(_.reduce(col, lambda t, n: t + n), 1)
 
     def test_filter(self):
-    	col = [1, 2, 3, 4]
-    	filtered_col = _.filter(col, lambda n: n < 3)
-    	self.assertEqual(filtered_col, [1, 2])
+        col = [1, 2, 3, 4]
+        filtered_col = _.filter(col, lambda n: n < 3)
+        self.assertEqual(filtered_col, [1, 2])
 
-    	col = [{'id': 1, 'name': 'Name'}, {'id': 2, 'name': 'Name', 'prop': 'value'}]
-    	filtered_col = _.filter(col, lambda o: 'prop' in o)
-    	self.assertEqual(filtered_col, [{'id': 2, 'name': 'Name', 'prop': 'value'}])
+        col = [{'id': 1, 'name': 'Name'}, {'id': 2, 'name': 'Name', 'prop': 'value'}]
+        filtered_col = _.filter(col, lambda o: 'prop' in o)
+        self.assertEqual(filtered_col, [{'id': 2, 'name': 'Name', 'prop': 'value'}])
 
     def test_reject(self):
         col = [1, 2, 3, 4]
@@ -55,13 +59,13 @@ class TestCollectutilsMethods(unittest.TestCase):
         self.assertEqual(filtered_col, [{'id': 1, 'name': 'Name'}])
 
     def test_contains(self):
-    	col = [1, 2, 3, 4]
-    	self.assertTrue(_.contains(col, 2))
-    	self.assertFalse(_.contains(col, 8))
+        col = [1, 2, 3, 4]
+        self.assertTrue(_.contains(col, 2))
+        self.assertFalse(_.contains(col, 8))
 
-    	col = [{'id': 1, 'name': 'Name'}, {'id': 2, 'name': 'Name', 'prop': 'value'}]
-    	self.assertTrue(_.contains(col, lambda o: 'prop' in o))
-    	self.assertFalse(_.contains(col, lambda o: 'noprop' in o))
+        col = [{'id': 1, 'name': 'Name'}, {'id': 2, 'name': 'Name', 'prop': 'value'}]
+        self.assertTrue(_.contains(col, lambda o: 'prop' in o))
+        self.assertFalse(_.contains(col, lambda o: 'noprop' in o))
 
     def test_search(self):
         col = [1, 2, 3, 4]
@@ -112,6 +116,15 @@ class TestCollectutilsMethods(unittest.TestCase):
         col = [{'id': 2}, {'id': 1}, {'id': 3}, {'id': 5},{'id': 4}]
         self.assertEqual(_.sort_by(col, 'id'), [{'id': 1}, {'id': 2}, {'id': 3}, {'id': 4}, {'id': 5}])
         self.assertEqual(_.sort_by(col, 'id', True), [{'id': 5}, {'id': 4}, {'id': 3}, {'id': 2}, {'id': 1}])
+    
+    def test_where(self):
+        col = [{'id': 2}, {'id': 1}, {'id': 3}, {'id': 5},{'id': 4}]
+        self.assertEqual(_.where(col, 'id', 1), [{'id': 1}])
+
+    def test_where_in(self):
+        col = [{'id': 1}, {'id': 2}, {'id': 3}, {'id': 5},{'id': 4}]
+        self.assertEqual(_.where_in(col, 'id', [1,3]), [{'id': 1}, {'id': 2}, {'id': 3}])
+
 
 class TestAccessValueMethods(unittest.TestCase):
     def test_first(self):
@@ -122,6 +135,13 @@ class TestAccessValueMethods(unittest.TestCase):
 
     def test_last(self):
         self.assertEqual(_.last([1, 2, 3]), 3)
+
+    def test_iter(self):
+        self.assertEqual(
+            [i for i in Pywesome([1, 2, 3])],
+            [1, 2, 3]
+        )
+
 
 class TestOperationsMethods(unittest.TestCase):
 
@@ -139,6 +159,7 @@ class TestOperationsMethods(unittest.TestCase):
         col = [{'id': 1}, {'id': 2}, {'id': 3}, {'id': 4}, {'id': 5}]
         self.assertEqual(_.avg(col, 'id'), 3)
 
+
 class TestFormattingMethods(unittest.TestCase):
 
     def test_join(self):
@@ -152,6 +173,7 @@ class TestFormattingMethods(unittest.TestCase):
         col = [{'id': 1}, {'id': 2}, {'id': 3}, {'id': 4}, {'id': 5}]
         self.assertEqual(_.json(col), json.dumps(col))
 
+
 class TestHelpersMethods(unittest.TestCase):
 
     def test_random_number(self):
@@ -159,40 +181,41 @@ class TestHelpersMethods(unittest.TestCase):
             i = _.random_number(0, 6)
             self.assertTrue(i >= 0 and i <= 6)
 
+
 class TestPywesomeWrapperMethods(unittest.TestCase):
 
     def test_forwarding(self):
-        col = collect([0, 1, 2, 3, 4, 5])
+        col = Pywesome.collect([0, 1, 2, 3, 4, 5])
         self.assertEqual(col.reduce(lambda s,n: s + n), 15)
         self.assertEqual(col.reduce(lambda s,n: s + n, 10), 25)
         self.assertEqual(col.map(lambda n: n + 1).to_list(), [1, 2, 3, 4, 5, 6])
 
     def test_append(self):
-        col = collect([0, 1, 2])
+        col = Pywesome.collect([0, 1, 2])
         col.append(3)
         self.assertEqual(col.last(), 3)
 
     def test_prepend(self):
-        col = collect([0, 1, 2])
+        col = Pywesome.collect([0, 1, 2])
         col.prepend(3)
         self.assertEqual(col.first(), 3)
 
     def test_pop(self):
-        col = collect([0, 1, 2])
+        col = Pywesome.collect([0, 1, 2])
         self.assertEqual(col.pop(2), 2)
         self.assertEqual(col.to_list(), [0, 1])
         self.assertEqual(col.pop(), 1)
 
     def test_count(self):
-        col = collect([0, 1, 2])
+        col = Pywesome.collect([0, 1, 2])
         self.assertEqual(col.count(), 3)
 
     def test_to_list(self):
-        col = collect([0, 1, 2])
+        col = Pywesome.collect([0, 1, 2])
         self.assertEqual(col.to_list(), [0, 1, 2])
 
     def test_to_json(self):
-        col = collect([0, 1, 2])
+        col = Pywesome.collect([0, 1, 2])
         self.assertEqual(col.to_json(), "[0, 1, 2]")
         
 
