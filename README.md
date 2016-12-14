@@ -38,7 +38,7 @@ Python lists on steroids.
 You can install pywesome using pip
 
 ```
-pip install git+https://github.com/lucasbedout/pywesome.git#egg=pywesome
+pip install pywesome
 ```
 
 That's it, you can use it
