@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name = 'pywesome',
-    version = '201611101140',
+    version = '1.0',
     description = 'Python lists on steroidss',
     packages = ['pywesome']
 )
